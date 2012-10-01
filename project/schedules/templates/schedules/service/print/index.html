@@ -75,8 +75,8 @@
                 {% for showing in item.list %}
                     <tr>
                         <td style="width:85px;">{{ showing.time|time:"" }} </td>
-                        <td>
-                            {% ifequal showing.grouper.keyname "kuaz" %}{{ showing.airing.series.name }}
+                        <td>  <!-- {{ showing.service.keyname }} -->
+                            {% ifequal showing.service.keyname "kuaz" %}{{ showing.airing.series.name }}
                                 {% else %}{% if showing.airing.composer %}{{ showing.airing.composer }} &ndash; {% endif %}{{ showing.airing.name }}
                                 <blockquote>{% spaceless %}
                                     {% if showing.airing.songs %}{% for song in showing.airing.songs.all %}
