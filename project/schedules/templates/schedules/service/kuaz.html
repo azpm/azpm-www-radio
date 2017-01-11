@@ -1,23 +1,67 @@
-{% extends "schedules/service/base.html" %}
+{% extends "schedules/base.html" %}
 
 {% block zone_one %}
-    {% include "schedules/service/nav.html" %}
-    <div class="namedbox">
-        <h1 class="boxtop bt-blue">{{ service.name }}</h1>
-        <h3 class="schedules-date">{{ idealised_day|date:"l, F j, Y" }}</h3>
-        <table class="airing-table bordered-table zebra-table">
-            <thead><tr>
-                <th>Time</th>
-                <th>Show</th>
-            </tr></thead>{% for air in airing %}
-            <tr>
-                <td class="show-airtime">{{ air.time|time:"f a" }}</td>
-                <td class="show-info">
-                    <span class="show-title"><a class="no-href" name="{{ air.time|time:'f.a' }}">
-                        {{ air.airing.series.name }}
-                    </a></span>
-                </td>
-            </tr>{% endfor %}
-        </table>
-    </div>
-{% endblock %}
+<section id="schedules">
+		<div class="container-fluid">
+			<div class="row">				
+				<div class="col-lg-12">
+					<span class="top-tag-row">
+						<ol class="breadcrumb" style="margin-bottom: 5px;">
+						  <li><a href="https://radio.azpm.org/schedules/">Radio Schedules</a></li>
+						  <li class="active">{{ service.name }}</li>
+						</ol>
+						<a name="top"></a>
+					</span>					
+				</div>
+			</div>
+			<div class="row">				
+				<div class="col-lg-12">
+					<h1>{{ service.name }} Schedule</h1>	
+					{% include "schedules/service/nav.html" %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3 marginbottom">
+					{% include "schedules/calendar.html" %}
+				</div>				
+				<div class="col-sm-9">
+					<div class="row{% if not forloop.first %} marginextratop{% endif %}">
+						<div class="col-sm-8">
+							<h2>{{ service.name }}</h2>
+						</div>
+						<div class="col-sm-4">
+							<div class="daysched">
+								{{ idealised_day|date:"l, F j, Y" }}
+							</div>	
+						</div>
+					</div>					
+					<div class="row schedlistkey">
+						<div class="col-sm-3">
+							Time					
+						</div>
+						<div class="col-sm-9">
+							Show					
+						</div>
+					</div>
+					{% for air in airing %}
+					<div class="row schedlistline">
+						<div class="col-sm-3">
+							{{ air.time|time:"f a" }}					
+						</div>
+						<div class="col-sm-9">
+							<h3>{{ air.airing.series.name }}</h3>
+						</div>
+					</div>
+					{% endfor %}
+					
+					<div class="row margintop">
+						<div class="col-sm-12">
+							<a href="#top">Back to Top</a>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+</section>
+{% endblock %}		

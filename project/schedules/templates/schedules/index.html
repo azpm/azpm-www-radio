@@ -1,53 +1,85 @@
 {% extends "schedules/base.html" %}
 
 {% block zone_one %}
-    {% include "schedules/service/nav.html" %}
-    {% regroup airing by service as set %}{% for service in set %}
-        <div class="namedbox">
-            <h1 class="boxtop bt-blue">{{ service.grouper.name }}</h1>
-            <h3 class="schedules-date">{{ idealised_day|date:"l, F j, Y" }}</h3>
-            <table class="airing-table bordered-table zebra-table">
-                <thead><tr>
-                    <th>Time</th>
-                    <th>Show</th>
-                </tr></thead>{% for air in service.list %}
-                <tr>
-                    <td class="show-airtime">{{ air.time|time:"f a" }}</td>
-                    <td class="show-info radio">
-                        {% ifequal service.grouper.keyname "kuaz" %}<span class="show-title"><a class="no-href" name="{{ air.time|time:'f.a' }}">{{ air.airing.series.name }}</a></span>
-                        {% else %}{% if air.airing.composer %}{{ air.airing.composer }} &ndash; {% endif %}<span class="show-title"><a class="no-href" name="{{ air.time|time:'f.a' }}">{{ air.airing.name }}</a></span>
-                        <blockquote>{% spaceless %}
+{% regroup airing by service as set %}{% for service in set %}
+<section id="schedules">
+		<div class="container-fluid">
+			<div class="row">				
+				<div class="col-lg-12">
+					<span class="top-tag-row">
+						<ol class="breadcrumb" style="margin-bottom: 5px;">
+						  <li><a href="https://radio.azpm.org/schedules/">Radio Schedules</a></li>
+						  <li class="active">Daily</li>
+						</ol>
+						<a name="top"></a>
+					</span>					
+				</div>
+			</div>
+			<div class="row">				
+				<div class="col-lg-12">
+					<h1>Radio Schedules</h1>	
+					{% include "schedules/service/nav.html" %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3 marginbottom">
+					{% include "schedules/calendar.html" %}
+				</div>				
+				<div class="col-sm-9">
+					{% regroup airing by service as set %}{% for service in set %}
+					<div class="row{% if not forloop.first %} marginextratop{% endif %}">
+						<div class="col-sm-8">
+							<h2>{{ service.grouper.name }}</h2>
+						</div>
+						<div class="col-sm-4">
+							<div class="daysched">
+								{{ idealised_day|date:"l, F j, Y" }}
+							</div>	
+						</div>
+					</div>					
+					<div class="row schedlistkey">
+						<div class="col-sm-3">
+							Time					
+						</div>
+						<div class="col-sm-9">
+							Show					
+						</div>
+					</div>
+					{% for air in service.list %}
+					<div class="row schedlistline">
+						<div class="col-sm-3">
+							{{ air.time|time:"f a" }}					
+						</div>
+						<div class="col-sm-9">
+							<h3>{% ifequal service.grouper.keyname "kuaz" %}
+							{{ air.airing.series.name }}
+							{% else %}{% if air.airing.composer %}{{ air.airing.composer }} &ndash; {% endif %}{{ air.airing.name }}</h3>
+								{% spaceless %}
                             {% if air.airing.songs %}{% for song in air.airing.songs.all %}
                                 {% if song.composer %}{{ song.composer }} &ndash; {% endif %}{{ song.name }}<br/>{% endfor %}
                             {% else %}
                                 {%  if air.start < rightnow %}
                                     {% if air.airing.ensemble %}
                                     ensemble: {{ air.airing.ensemble|cut:";" }}<br/>{% endif %}{% if air.airing.soloist %}
-                                    soloist: {{ air.airing.soloist|cut:";" }}<br/>{% endif %}{% if air.airing.catalogue_number %}
-                                    catalog #: {{ air.airing.catalogue_number|cut:";" }}<br/>{% endif %}{% if air.airing.record_company %}
-                                    label: {{ air.airing.record_company|cut:";" }}<br/>{% endif %}
+                                    <strong>Soloist</strong>: {{ air.airing.soloist|cut:";" }}<br/>{% endif %}{% if air.airing.catalogue_number %}
+                                    <strong>Catalog #</strong>: {{ air.airing.catalogue_number|cut:";" }}<br/>{% endif %}{% if air.airing.record_company %}
+                                    <strong>Label</strong>: {{ air.airing.record_company|cut:";" }}<br/>{% endif %}
                                 {% endif %}
                             {%  endif %}
                         {% endspaceless %}
-                        </blockquote>
-                        {% endifequal %}
-                    </td>
-                </tr>{% endfor %}
-            </table>
-        </div>{%  endfor %}
-{% endblock %}
-
-{% block zone_two %}
-    {{ block.super }}
-    <div class="namedbox" id="schedules-calendars">
-        <h1 class="boxtop bt-grey">Schedule Calendar</h1>
-        {% include "schedules/calendar.html" %}
-    </div>{% if underwriting_spotlets %}
-    <div class="namedbox">
-        <h1 class="boxtop bt-red">Support Comes From</h1>
-        {% for spot in underwriting_spotlets %}
-            <a href="{{ spot.myurl }}" ><img src="{{ spot.image.url }}" alt="{{ spot.underwriter }}"/></a>
-            <hr size="6" color="gray" style="margin:0px;" />
-        {% endfor %}
-    </div>{% endif %}
-{% endblock %}
+						{% endifequal %}
+						</div>
+					</div>
+					{% endfor %}{% endfor %}
+					
+					<div class="row margintop">
+						<div class="col-sm-12">
+							<a href="#top">Back to Top</a>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+</section>
+{% endblock %}		
