@@ -29,7 +29,7 @@ class RadioSchedulesPage(Page):
 
     #the static files intensifier css for schedules, not included in app because it comes from TV schedules
     schedules_css = {
-        'url': "%sintensifier/css/schedules.css" % settings.STATIC_URL,
+        'url': "%sultralaser/css/schedules.css" % settings.STATIC_URL,
         'media': "screen",
         'for_ie': False
     }
@@ -39,7 +39,7 @@ class RadioSchedulesPage(Page):
 
     def get_theme(self):
         try:
-            theme = Theme.objects.get(keyname="intensifier")
+            theme = Theme.objects.get(keyname="ultralaser")
         except Theme.DoesNotExist:
             theme = Theme.objects.none()
 
