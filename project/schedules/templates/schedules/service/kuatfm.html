@@ -56,7 +56,7 @@
                              {% else %}
                             {%  if air.start < rightnow %}
                             {% if air.airing.ensemble %}
-                                ensemble: {{ air.airing.ensemble|cut:";" }}<br/>{% endif %}{% if air.airing.soloist %}
+                                <strong>Ensemble</em>: {{ air.airing.ensemble|cut:";" }}<br/>{% endif %}{% if air.airing.soloist %}
                                     <strong>Soloist</strong>: {{ air.airing.soloist|cut:";" }}<br/>{% endif %}{% if air.airing.catalogue_number %}
                                     <strong>Catalog #</strong>: {{ air.airing.catalogue_number|cut:";" }}<br/>{% endif %}{% if air.airing.record_company %}
                                     <strong>Label</strong>: {{ air.airing.record_company|cut:";" }}<br/>{% endif %}
