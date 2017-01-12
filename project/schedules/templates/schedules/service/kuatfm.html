@@ -25,14 +25,9 @@
 					{% include "schedules/calendar.html" %}
 				</div>				
 				<div class="col-sm-9">
-					<div class="row{% if not forloop.first %} marginextratop{% endif %}">
+					<div class="row">
 						<div class="col-sm-8">
-							<h2>{{ service.name }}</h2>
-						</div>
-						<div class="col-sm-4">
-							<div class="daysched">
-								{{ idealised_day|date:"l, F j, Y" }}
-							</div>	
+							<h2>{{ idealised_day|date:"l, F j, Y" }}</h2>
 						</div>
 					</div>					
 					<div class="row schedlistkey">
@@ -56,7 +51,7 @@
                              {% else %}
                             {%  if air.start < rightnow %}
                             {% if air.airing.ensemble %}
-                                <strong>Ensemble</em>: {{ air.airing.ensemble|cut:";" }}<br/>{% endif %}{% if air.airing.soloist %}
+                                <strong>Ensemble</strong>: {{ air.airing.ensemble|cut:";" }}<br/>{% endif %}{% if air.airing.soloist %}
                                     <strong>Soloist</strong>: {{ air.airing.soloist|cut:";" }}<br/>{% endif %}{% if air.airing.catalogue_number %}
                                     <strong>Catalog #</strong>: {{ air.airing.catalogue_number|cut:";" }}<br/>{% endif %}{% if air.airing.record_company %}
                                     <strong>Label</strong>: {{ air.airing.record_company|cut:";" }}<br/>{% endif %}
