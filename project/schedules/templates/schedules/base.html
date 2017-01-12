@@ -1,5 +1,5 @@
 {% extends "ultralaser/base.html" %}
-{%  load radio %}
+{% load radio %}
 
 {% block open-graph %}
    <meta property="og:title" content="Radio Schedules - Arizona Public Media" />
@@ -15,7 +15,12 @@
 	<meta name="twitter:image" content="https://media.azpm.org/master/image/2017/1/11/ogimg/radio-schedules.jpg">
 {% endblock %}
 
-{% block extra_script %}
+{% block extra_style %}
+	<link href="https://media.azpm.org/master/doc/redesign/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://media.azpm.org/master/doc/redesign/css/azpm.css" rel="stylesheet">
+	<link href="https://media.azpm.org/master/doc/redesign/css/bootstrap-datepicker3.css" rel="stylesheet">
+{% endblock %}
+{% block extra_script %}{% comment %}{% print_form_js %}{% endcomment %}
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://media.azpm.org/master/doc/redesign/js/bootstrap.min.js"></script>
 	<script src="https://media.azpm.org/master/doc/redesign/js/smooth-scroll.js"></script>
