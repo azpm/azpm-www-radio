@@ -20,7 +20,7 @@
 					<td>F</td>
 					<td>S</td>
 				</tr>{% for weeks in block.calendar %}
-				<<tr class="calendar-week">{% for day in weeks %}
+				<tr class="calendar-week">{% for day in weeks %}
             <td class="{% proper_td_class block day idealised_day %}">{% ifequal day.month block.day.month %}
                 {% if day <= max_days %}
                     <a href="{% url radio:index-date day.year day.month day.day %}">{{ day|date:"j" }}</a>
