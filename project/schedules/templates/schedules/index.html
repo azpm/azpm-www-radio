@@ -28,10 +28,10 @@
 				<div class="col-sm-9">
 					{% regroup airing by service as set %}{% for service in set %}
 					<div class="row{% if not forloop.first %} marginextratop{% endif %}">
-						<div class="col-sm-8">
+						<div class="col-sm-7">
 							<h3>{{ service.grouper.name }}</h3>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-5">
 							<div class="daysched">
 								{{ idealised_day|date:"l, F j, Y" }}
 							</div>	
