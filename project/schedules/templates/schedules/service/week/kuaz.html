@@ -1,23 +1,68 @@
 {% extends "schedules/service/base.html" %}
 
 {% block zone_one %}
-    {% include "schedules/service/nav.html" %}{% regroup airing by date as airweek %}{% for day in airweek %}
-    <div class="namedbox">
-        <h1 class="boxtop bt-blue">{{ service.name }} Week at a glance</h1>
-        <h3 class="schedules-date">{{ day.grouper|date:"l, F j, Y" }}</h3>
-        <table class="airing-table bordered-table zebra-table">
-            <thead><tr>
-                <th>Time</th>
-                <th>Show</th>
-            </tr></thead>{% for air in day.list %}
-            <tr>
-                <td class="show-airtime">{{ air.time|time:"f a" }}</td>
-                <td class="show-info">
-                    <span class="show-title"><a class="no-href" name="{{ air.time|time:'f.a' }}">
-                        {{ air.airing.series.name }}
-                    </a></span>
-                </td>
-            </tr>{% endfor %}
-        </table>
-    </div>{% endfor %}
-{% endblock %}
+<section id="schedules">
+		<div class="container-fluid">
+			<div class="row">				
+				<div class="col-lg-12">
+					<span class="top-tag-row">
+						<ol class="breadcrumb" style="margin-bottom: 5px;">
+						  <li><a href="https://radio.azpm.org/schedules/">Radio Schedules</a></li>
+						  <li>{{ service.name }}</li>
+						  <li class="active">Weekly Schedule</li>
+						</ol>
+						<a name="top"></a>
+					</span>					
+				</div>
+			</div>
+			<div class="row">				
+				<div class="col-lg-12">
+					<h1>Weekly Schedule for {{ service.name }}</h1>	
+					{% include "schedules/service/nav.html" %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3 marginbottom">
+					{% include "schedules/service/calendar.html" %}
+					{% include "schedules/underwriting-channel.html" %}
+				</div>
+				
+				<div class="col-sm-9">
+				{% regroup airing by date as airweek %}
+				{% for day in airweek %}
+					<div class="row{% if not forloop.first %} marginextratop{% endif %}">
+						<div class="col-sm-12">
+							<h3>{{ idealised_day|date:"l, F j, Y" }}</h3>
+						</div>
+					</div>					
+					<div class="row schedlistkey">
+						<div class="col-sm-3">
+							Time					
+						</div>
+						<div class="col-sm-9">
+							Show					
+						</div>
+					</div>
+					{% for air in day.list %}
+					<div class="row schedlistline">
+						<div class="col-sm-3">
+							{{ air.time|time:"f a" }}					
+						</div>
+						<div class="col-sm-9">
+							<h3>{{ air.airing.series.name }}</h3>
+						</div>
+					</div>
+					{% endfor %}
+				{% endfor %}
+					
+					<div class="row margintop">
+						<div class="col-sm-12">
+							<a href="#top">Back to Top</a>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+</section>
+{% endblock %}		
